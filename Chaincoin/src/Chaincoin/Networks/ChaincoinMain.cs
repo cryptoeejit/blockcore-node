@@ -128,7 +128,7 @@ namespace Chaincoin.Networks
             powAllowMinDifficultyBlocks: false,
 
             maxReorgLength: 500,
-            defaultAssumeValid: new uint256("0000000001aa875dd078fe2381501d724dade107bea7868fd6586918f4f8421f"), //1499485 // PM-Tech: ChainCoin
+            defaultAssumeValid: new uint256("0x000000000002853f21e36da851c71b83f4de6781354c9007527bb443fe1dde6b"), //1499485 // PM-Tech: ChainCoin
             maxMoney: long.MaxValue,
             coinbaseMaturity: 50,
             premineHeight: 2,
