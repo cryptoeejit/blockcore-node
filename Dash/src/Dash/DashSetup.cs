@@ -22,7 +22,7 @@ namespace Dash
          PoWBlockReward = 16,
          PoSBlockReward = 0,
          LastPowBlock = 0,
-         GenesisText = "Copy This And Everything Else From genesis.txt and update values below.", // The New York Times, 2020-04-16
+         GenesisText = "Wired 09/Jan/2014 The Grand Experiment Goes Live: Overstock.com Is Now Accepting Bitcoins", // The New York Times, 2020-04-16
          TargetSpacing = TimeSpan.FromSeconds(2.5 * 60),
          ProofOfStakeTimestampMask = 0, // 0x0000003F // 64 sec
          PoSVersion = 0
@@ -46,15 +46,11 @@ namespace Dash
          GenesisReward = Money.Zero,
          HashGenesisBlock = "00000b0517068e602ed5279c20168cfa1e69884ee4e784909652da34c361bff2",
          HashMerkleRoot = "b3425d46594a954b141898c7eebe369c6e6a35d2dab393c1f495504d2147883b",
-         DNS = new[] { "seed.yourdomain.com", "seed.secondomain.com", "dash.seed.blockcore.net" },
+         DNS = new[] { "dnsseed.dash.org", "dnsseed.dashdot.io", "dnsseed.masternode.io", "dnsseed.dashpay.io"},
          Nodes = new[] { "10.10.10.10", "11.11.11.11" },
-         Checkpoints = new Dictionary<int, CheckpointInfo>
-         {
-            //new DNSSeedData("dash.org", "dnsseed.dash.org"),
-            //new DNSSeedData("dashdot.io", "dnsseed.dashdot.io"),
-            //new DNSSeedData("masternode.io", "dnsseed.masternode.io"),
-            //new DNSSeedData("dashpay.io", "dnsseed.dashpay.io")
-         }
+         //Checkpoints = new Dictionary<int, CheckpointInfo>
+         //{
+         //}
       };
 
       internal NetworkSetup RegTest = new NetworkSetup
@@ -77,10 +73,10 @@ namespace Dash
          HashMerkleRoot = "d382311c9e4a1ec84be1b32eddb33f7f0420544a460754f573d7cb7054566d75",
          DNS = new[] { "seedregtest1.dash.blockcore.net", "seedregtest2.dash.blockcore.net", "seedregtest.dash.blockcore.net" },
          Nodes = new[] { "10.10.10.10", "11.11.11.11" },
-         Checkpoints = new Dictionary<int, CheckpointInfo>
-         {
-            // TODO: Add checkpoints as the network progresses.
-         }
+         //Checkpoints = new Dictionary<int, CheckpointInfo>
+         //{
+         //   // TODO: Add checkpoints as the network progresses.
+         //}
       };
 
       internal NetworkSetup Test = new NetworkSetup

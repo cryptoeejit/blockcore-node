@@ -10,11 +10,6 @@ namespace Chaincoin.Networks.Consensus
 {
    public class ChaincoinTransaction : Transaction
    {
-      public override bool IsProtocolTransaction()
-      {
-         return true; // IsCoinBase || IsProtocolTransaction;
-      }
-
       public uint DashVersion => Version & 0xffff;
       public DashTransactionType DashType => (DashTransactionType)((Version >> 16) & 0xffff);
       public byte[] ExtraPayload = new byte[0];

@@ -104,7 +104,7 @@ namespace Dash.Networks.Consensus
       /// <inheritdoc />
       public List<Type> MempoolRules { get; set; }
 
-      public ChaincoinConsensus(
+      public DashConsensus(
           ConsensusFactory consensusFactory,
           ConsensusOptions consensusOptions,
           int coinType,

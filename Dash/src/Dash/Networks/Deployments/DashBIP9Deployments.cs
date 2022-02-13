@@ -16,7 +16,7 @@ namespace Dash.Networks.Deployments
       public const int ColdStaking = 3;
 
       // The number of deployments.
-      public const int NumberOfDeployments = 4;
+      public const int NumberOfDeployments = 3;
 
       /// <summary>
       /// Constructs the BIP9 deployments array.

@@ -45,18 +45,3 @@ namespace Dash.Networks.Consensus
       }
    }
 }
-//#pragma warning disable CS0618 // Type or member is obsolete
-//   public class DashBlockHeader : BlockHeader
-//   {
-//      // https://github.com/dashpay/dash/blob/e596762ca22d703a79c6880a9d3edb1c7c972fd3/src/primitives/block.cpp#L13
-//      static byte[] CalculateHash(byte[] data, int offset, int count)
-//      {
-//         return new HashX11.X11().ComputeBytes(data.Skip(offset).Take(count).ToArray());
-//      }
-
-//      protected override HashStreamBase CreateHashStream()
-//      {
-//         return BufferedHashStream.CreateFrom(CalculateHash);
-//      }
-//   }
-}

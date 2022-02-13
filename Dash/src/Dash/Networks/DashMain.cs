@@ -80,19 +80,35 @@ namespace Dash.Networks
             WitnessScaleFactor = 4
          };
 
+         //https://github.com/dashpay/dash/blob/master/src/chainparams.cpp
+         //consensus.BIP34Height = 951;
+         //consensus.BIP34Hash = uint256S("0x000001f35e70f7c5705f64c6c5cc3dea9449e74d5b5c7cf74dad1bcca14a8012");
+         //consensus.BIP65Height = 619382; // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357
+         //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa
+         //consensus.DIP0001Height = 782208;
+         //consensus.DIP0003Height = 1028160;
+         //consensus.DIP0003EnforcementHeight = 1047200;
+         //consensus.DIP0003EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81");
+         //consensus.DIP0008Height = 1088640; // 00000000000000112e41e4b3afda8b233b8cc07c532d2eac5de097b68358c43e
+
          var buriedDeployments = new BuriedDeploymentsArray
          {
-            [BuriedDeployments.BIP34] = 0,
-            [BuriedDeployments.BIP65] = 0,
-            [BuriedDeployments.BIP66] = 0
+            [BuriedDeployments.BIP34] = 951,
+            [BuriedDeployments.BIP65] = 619382,
+            [BuriedDeployments.BIP66] = 245817
          };
 
          var bip9Deployments = new DashBIP9Deployments()
          {
-            [DashBIP9Deployments.ColdStaking] = new BIP9DeploymentsParameters("ColdStaking", 2,
-             new DateTime(2018, 12, 1, 0, 0, 0, DateTimeKind.Utc),
-             new DateTime(2019, 12, 1, 0, 0, 0, DateTimeKind.Utc),
-             BIP9DeploymentsParameters.DefaultMainnetThreshold)
+            [DashBIP9Deployments.TestDummy] = new BIP9DeploymentsParameters("TestDummy", 28, 1199145601, 1230767999, BIP9DeploymentsParameters.DefaultMainnetThreshold),
+            [DashBIP9Deployments.CSV] = new BIP9DeploymentsParameters("CSV", 0, 1486252800, 1517788800, BIP9DeploymentsParameters.DefaultMainnetThreshold),
+            //[DashBIP9Deployments.Segwit] = new BIP9DeploymentsParameters("Segwit", 1, 1527811200, 1577750400, BIP9DeploymentsParameters.DefaultMainnetThreshold)
+         };
+
+         consensusFactory.Protocol = new ConsensusProtocol()
+         {
+            ProtocolVersion = 70219,
+            MinProtocolVersion = 70219,
          };
 
          Consensus = new Blockcore.Consensus.Consensus(
@@ -160,8 +176,9 @@ namespace Dash.Networks
 
          StandardScriptsRegistry = new DashStandardScriptsRegistry();
 
-         // 00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6
-         Assert(Consensus.HashGenesisBlock == uint256.Parse(network.HashGenesisBlock));
+      //assert(consensus.hashGenesisBlock == uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
+      //assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+         Assert(Consensus.HashGenesisBlock == uint256.Parse(network.HashGenesisBlock));   
          Assert(Genesis.Header.HashMerkleRoot == uint256.Parse(network.HashMerkleRoot));
 
          RegisterRules(Consensus);
@@ -171,50 +188,26 @@ namespace Dash.Networks
       protected void RegisterRules(IConsensus consensus)
       {
          consensus.ConsensusRules
-             .Register<HeaderTimeChecksRule>()
-             .Register<HeaderTimeChecksPosRule>()
-             .Register<PosFutureDriftRule>()
-             .Register<CheckDifficultyPosRule>()
-             .Register<DashHeaderVersionRule>()
-             .Register<ProvenHeaderSizeRule>()
-             .Register<ProvenHeaderCoinstakeRule>();
+           .Register<HeaderTimeChecksRule>()
+           //.Register<CheckDifficultyPowRule>()
+           //.Register<DashActivationRule>()
+           .Register<DashHeaderVersionRule>();
 
          consensus.ConsensusRules
-             .Register<BlockMerkleRootRule>()
-             .Register<PosBlockSignatureRepresentationRule>()
-             .Register<PosBlockSignatureRule>();
+             .Register<BlockMerkleRootRule>();
 
          consensus.ConsensusRules
              .Register<SetActivationDeploymentsPartialValidationRule>()
-             .Register<PosTimeMaskRule>()
 
-             // rules that are inside the method ContextualCheckBlock
-             .Register<TransactionLocktimeActivationRule>()
-             .Register<CoinbaseHeightActivationRule>()
-             .Register<WitnessCommitmentsRule>()
+             .Register<TransactionLocktimeActivationRule>() // implements BIP113
+             .Register<CoinbaseHeightActivationRule>() // implements BIP34
+             .Register<WitnessCommitmentsRule>() // BIP141, BIP144
              .Register<BlockSizeRule>()
 
              // rules that are inside the method CheckBlock
              .Register<EnsureCoinbaseRule>()
              .Register<CheckPowTransactionRule>()
-             .Register<CheckPosTransactionRule>()
-             .Register<CheckSigOpsRule>()
-             .Register<PosCoinstakeRule>();
-
-         consensus.ConsensusRules
-             .Register<SetActivationDeploymentsFullValidationRule>()
-
-             .Register<CheckDifficultyHybridRule>()
-
-             // rules that require the store to be loaded (coinview)
-             .Register<FetchUtxosetRule>()
-             .Register<TransactionDuplicationActivationRule>()
-             .Register<CheckPosUtxosetRule>() // implements BIP68, MaxSigOps and BlockReward calculation
-                                              // Place the PosColdStakingRule after the PosCoinviewRule to ensure that all input scripts have been evaluated
-                                              // and that the "IsColdCoinStake" flag would have been set by the OP_CHECKCOLDSTAKEVERIFY opcode if applicable.
-             .Register<PosColdStakingRule>()
-             .Register<PushUtxosetRule>()
-             .Register<FlushUtxosetRule>();
+             .Register<CheckSigOpsRule>();
       }
 
       protected void RegisterMempoolRules(IConsensus consensus)

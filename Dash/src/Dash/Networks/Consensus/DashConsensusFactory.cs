@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Blockcore.Consensus;
 using Blockcore.Consensus.BlockInfo;
+using Blockcore.Consensus.TransactionInfo;
+using NBitcoin;
+using NBitcoin.DataEncoders;
 
 namespace Dash.Networks.Consensus
 {
@@ -11,34 +14,34 @@ namespace Dash.Networks.Consensus
       public DashConsensusFactory() : base()
       {
       }
+
       public override BlockHeader CreateBlockHeader()
       {
          return new DashBlockHeader();
       }
+
+      public override Transaction CreateTransaction()
+      {
+         return new DashTransaction();
+      }
+
+      public override Transaction CreateTransaction(byte[] bytes)
+      {
+         if (bytes == null)
+            throw new ArgumentNullException(nameof(bytes));
+
+         var transaction = new DashTransaction();
+         transaction.ReadWrite(bytes, this);
+         return transaction;
+      }
+
+      public override Transaction CreateTransaction(string hex)
+      {
+         if (hex == null)
+            throw new ArgumentNullException(nameof(hex));
+
+         return CreateTransaction(Encoders.Hex.DecodeData(hex));
+      }
+
    }
 }
-// NBitcoin
-//   public class DashConsensusFactory : ConsensusFactory
-//   {
-//      private DashConsensusFactory()
-//      {
-//      }
-
-//      // ReSharper disable once MemberHidesStaticFromOuterClass
-//      public static DashConsensusFactory Instance { get; } = new DashConsensusFactory();
-
-//      public override BlockHeader CreateBlockHeader()
-//      {
-//         return new DashBlockHeader();
-//      }
-
-//      public override Block CreateBlock()
-//      {
-//         return new DashBlock(new DashBlockHeader());
-//      }
-
-//      public override Transaction CreateTransaction()
-//      {
-//         return new DashTransaction();
-//      }
-//   }
