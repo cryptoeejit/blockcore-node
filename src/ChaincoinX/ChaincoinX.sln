@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29409.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F5DD37AF-774C-42E5-BF6A-020744060760}") = "ChaincoinX.Node", "src\ChaincoinX.Node\ChaincoinX.Node.csproj", "{CAF4F04F-24E1-48A6-8404-E5B4D4EFA111}"
+EndProject
+Project("{F5DD37AF-774C-42E5-BF6A-020744060760}") = "ChaincoinX", "src\ChaincoinX\ChaincoinX.csproj", "{F256CC2B-8A19-42A6-B1FE-71BEE7A35DFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAF4F04F-24E1-48A6-8404-E5B4D4EFA111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF4F04F-24E1-48A6-8404-E5B4D4EFA111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF4F04F-24E1-48A6-8404-E5B4D4EFA111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF4F04F-24E1-48A6-8404-E5B4D4EFA111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F256CC2B-8A19-42A6-B1FE-71BEE7A35DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F256CC2B-8A19-42A6-B1FE-71BEE7A35DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F256CC2B-8A19-42A6-B1FE-71BEE7A35DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F256CC2B-8A19-42A6-B1FE-71BEE7A35DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1555D60-5E3E-4FC6-9B2E-E61873397EA3}
+	EndGlobalSection
+EndGlobal
